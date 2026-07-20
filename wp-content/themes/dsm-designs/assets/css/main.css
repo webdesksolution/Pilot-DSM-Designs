@@ -1355,3 +1355,27 @@ select.dsmd-swatch-select:has(+ .dsmd-swatches) {
 	.dsmd-topbar-phone{margin-left:0;}
 	.dsmd-projects{grid-template-columns:1fr;}
 }
+
+/* Project gallery (reference: g1-g6 curated photos) */
+.dsmd-gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.dsmd-gallery-card{position:relative;display:block;aspect-ratio:426/260;border-radius:var(--dsmd-radius);overflow:hidden;background:var(--dsmd-accent);}
+.dsmd-gallery-card img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
+.dsmd-gallery-card:hover img{transform:scale(1.05);}
+.dsmd-gallery-card::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,0);transition:background .25s ease;}
+.dsmd-gallery-card:hover::after{background:rgba(20,18,15,.42);}
+.dsmd-gallery-cta{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;color:#fff;font-family:var(--dsmd-font-label);font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;opacity:0;transition:opacity .25s ease;}
+.dsmd-gallery-card:hover .dsmd-gallery-cta{opacity:1;}
+
+/* Financing (Brickhouse Capital) */
+.dsmd-financing-panel{aspect-ratio:auto;background:none;display:block;}
+.dsmd-financing-panel img{width:100%;border-radius:var(--dsmd-radius);display:block;}
+
+/* General Inquiries + Design CTA (contact-block sections) */
+.dsmd-contact-block{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;padding:72px 24px;}
+.dsmd-cta-block{text-align:center;max-width:640px;margin:0 auto;padding:72px 24px;}
+.dsmd-cta-block .dsmd-financing-text{margin-left:auto;margin-right:auto;}
+
+@media (max-width:900px){
+	.dsmd-gallery-grid{grid-template-columns:1fr;}
+	.dsmd-contact-block{grid-template-columns:1fr;gap:32px;}
+}

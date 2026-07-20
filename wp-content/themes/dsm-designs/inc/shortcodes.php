@@ -41,6 +41,24 @@ function dsmd_category_image( $cat ) {
 }
 
 /**
+ * Find an image attachment by its exact title (avoids the deprecated
+ * get_page_by_title()).
+ *
+ * @param string $title Attachment title.
+ * @return int Attachment ID, or 0 if not found.
+ */
+function dsmd_attachment_id_by_title( $title ) {
+	$query = new WP_Query( array(
+		'post_type'      => 'attachment',
+		'post_status'    => 'inherit',
+		'title'          => $title,
+		'posts_per_page' => 1,
+		'fields'         => 'ids',
+	) );
+	return $query->have_posts() ? (int) $query->posts[0] : 0;
+}
+
+/**
  * [dsmd_hero_media] — latest product image + years-in-business badge.
  */
 function dsmd_shortcode_hero_media() {
@@ -127,26 +145,35 @@ add_shortcode( 'dsmd_category_grid', 'dsmd_shortcode_category_grid' );
 
 /**
  * [dsmd_projects] — styling-stations / retail / spa category showcase.
+ * Uses the client-approved curated images (not category product thumbs).
  */
 function dsmd_shortcode_projects() {
 	if ( ! taxonomy_exists( 'product_cat' ) ) {
 		return '';
 	}
-	$dsmd_proj = get_terms( array(
-		'taxonomy'   => 'product_cat',
-		'hide_empty' => true,
-		'slug'       => array( 'styling-stations', 'retail', 'spa' ),
-	) );
-	if ( is_wp_error( $dsmd_proj ) || ! $dsmd_proj ) {
-		return '';
-	}
+	$dsmd_proj_map = array(
+		'styling-stations' => 'Styling-Station.webp',
+		'retail'           => 'Retail.webp',
+		'spa'              => 'spa.webp',
+	);
 	ob_start();
 	?>
 	<div class="dsmd-projects">
-		<?php foreach ( $dsmd_proj as $dsmd_pcat ) : ?>
-			<a class="dsmd-project" href="<?php echo esc_url( get_term_link( $dsmd_pcat ) ); ?>">
-				<span class="dsmd-project-thumb"><?php echo wp_kses_post( dsmd_category_image( $dsmd_pcat ) ); ?></span>
-				<span class="dsmd-project-label"><?php echo esc_html( $dsmd_pcat->name ); ?><span class="dsmd-project-view"><?php esc_html_e( 'View project', 'dsm-designs' ); ?></span></span>
+		<?php foreach ( $dsmd_proj_map as $dsmd_slug => $dsmd_file ) :
+			$dsmd_term = get_term_by( 'slug', $dsmd_slug, 'product_cat' );
+			if ( ! $dsmd_term || is_wp_error( $dsmd_term ) ) {
+				continue;
+			}
+			$dsmd_attachment_id = dsmd_attachment_id_by_title( pathinfo( $dsmd_file, PATHINFO_FILENAME ) );
+			$dsmd_img_url       = $dsmd_attachment_id ? wp_get_attachment_image_url( $dsmd_attachment_id, 'large' ) : '';
+			?>
+			<a class="dsmd-project" href="<?php echo esc_url( get_term_link( $dsmd_term ) ); ?>">
+				<span class="dsmd-project-thumb">
+					<?php if ( $dsmd_img_url ) : ?>
+						<img src="<?php echo esc_url( $dsmd_img_url ); ?>" alt="<?php echo esc_attr( $dsmd_term->name ); ?>">
+					<?php endif; ?>
+				</span>
+				<span class="dsmd-project-label"><?php echo esc_html( $dsmd_term->name ); ?><span class="dsmd-project-view"><?php esc_html_e( 'View project', 'dsm-designs' ); ?></span></span>
 			</a>
 		<?php endforeach; ?>
 	</div>
@@ -154,3 +181,29 @@ function dsmd_shortcode_projects() {
 	return ob_get_clean();
 }
 add_shortcode( 'dsmd_projects', 'dsmd_shortcode_projects' );
+
+/**
+ * [dsmd_project_gallery] — six curated project photos, "View Project" overlay.
+ * Client-approved reference assets (g1–g6); no category linkage.
+ */
+function dsmd_shortcode_project_gallery() {
+	ob_start();
+	?>
+	<div class="dsmd-gallery-grid">
+		<?php for ( $i = 1; $i <= 6; $i++ ) :
+			$dsmd_attachment_id = dsmd_attachment_id_by_title( 'g' . $i );
+			$dsmd_img_url       = $dsmd_attachment_id ? wp_get_attachment_image_url( $dsmd_attachment_id, 'large' ) : '';
+			if ( ! $dsmd_img_url ) {
+				continue;
+			}
+			?>
+			<span class="dsmd-gallery-card">
+				<img src="<?php echo esc_url( $dsmd_img_url ); ?>" alt="<?php esc_attr_e( 'View project', 'dsm-designs' ); ?>">
+				<span class="dsmd-gallery-cta"><?php esc_html_e( 'View project', 'dsm-designs' ); ?></span>
+			</span>
+		<?php endfor; ?>
+	</div>
+	<?php
+	return ob_get_clean();
+}
+add_shortcode( 'dsmd_project_gallery', 'dsmd_shortcode_project_gallery' );
