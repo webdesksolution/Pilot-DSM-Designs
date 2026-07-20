@@ -1278,7 +1278,7 @@ select.dsmd-swatch-select:has(+ .dsmd-swatches) {
 /* Trust stats — individual cream boxed cards */
 .dsmd-stats{background:var(--dsmd-white);}
 .dsmd-stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
-.dsmd-stat{background:var(--dsmd-background);padding:32px 20px;text-align:center;}
+.dsmd-stat{background:var(--dsmd-background);padding:32px 20px;text-align:center;flex:0 0 calc(33.33% - 16px);}
 .dsmd-stat-n{display:block;font-family:var(--dsmd-font-display);font-size:56px;font-weight:500;color:var(--dsmd-primary);line-height:1;}
 .dsmd-stat-l{display:block;font-family:var(--dsmd-font-label);font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--dsmd-secondary-text);margin-top:10px;}
 
@@ -1293,15 +1293,18 @@ select.dsmd-swatch-select:has(+ .dsmd-swatches) {
 
 /* Why DSM — 2x2 icon-card grid */
 .dsmd-why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
-.dsmd-why{display:flex;align-items:flex-start;gap:24px;background:var(--dsmd-background);padding:32px;text-align:left;}
+.dsmd-why{display:flex;align-items:flex-start;gap:24px;background:var(--dsmd-background);padding:32px;text-align:left;flex:0 0 calc(50% - 12px);}
 .dsmd-why-mark{flex:none;width:80px;height:80px;border:1px solid var(--dsmd-border);border-radius:50%;display:grid;place-items:center;background:#fff;}
 .dsmd-why-mark svg{width:34px;height:34px;stroke:var(--dsmd-secondary-text);}
+.dsmd-why-copy{flex:1;min-width:0;}
 .dsmd-why h3{font-family:var(--dsmd-font-label);font-size:15px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;margin:0 0 8px;color:var(--dsmd-primary);}
 .dsmd-why p{font-size:14px;line-height:1.6;color:var(--dsmd-secondary-text);margin:0;}
 
 /* Financing */
 .dsmd-financing{background:var(--dsmd-background);}
-.dsmd-financing-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:56px;align-items:center;}
+.dsmd-financing-grid{display:flex;flex-wrap:wrap;gap:56px;align-items:center;}
+.dsmd-financing-copy{flex:1 1 480px;}
+.dsmd-financing-panel{flex:1 1 380px;}
 .dsmd-financing-grid h2{font-size:32px;margin:0 0 14px;font-family:var(--dsmd-font-heading);}
 .dsmd-financing-text{color:var(--dsmd-secondary-text);margin:0 0 26px;max-width:46ch;}
 .dsmd-financing-panel{background:var(--dsmd-white);border:1px solid var(--dsmd-border);border-radius:var(--dsmd-radius);padding:24px;}
@@ -1311,7 +1314,8 @@ select.dsmd-swatch-select:has(+ .dsmd-swatches) {
 
 /* Testimonials */
 .dsmd-testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
-.dsmd-quote{margin:0;background:var(--dsmd-white);padding:30px;display:flex;flex-direction:column;min-height:100%;}
+.dsmd-quote{margin:0;background:var(--dsmd-white);padding:30px;display:flex;flex-direction:column;min-height:100%;flex:0 0 calc(33.33% - 16px);}
+.dsmd-quote-meta{display:flex;align-items:center;gap:12px;}
 .dsmd-stars{color:var(--dsmd-primary);letter-spacing:3px;margin-bottom:14px;font-size:14px;}
 .dsmd-quote blockquote{margin:0 0 24px;font-size:15px;line-height:1.6;color:var(--dsmd-secondary-text);flex:1;}
 .dsmd-quote figcaption{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--dsmd-secondary-text);}
@@ -1324,11 +1328,12 @@ select.dsmd-swatch-select:has(+ .dsmd-swatches) {
 .dsmd-cta-row .dsmd-btn{width:100%;justify-content:center;text-align:center;}
 
 /* General Inquiries — photo + form split */
-.dsmd-gi-photo{min-height:520px;display:flex;flex-direction:column;justify-content:center;padding:64px 56px;position:relative;}
+.dsmd-contact-block{display:flex;flex-wrap:wrap;}
+.dsmd-gi-photo{min-height:520px;display:flex;flex-direction:column;justify-content:center;padding:64px 56px;position:relative;flex:1 1 480px;}
 .dsmd-gi-photo::before{content:"";position:absolute;inset:0;background:rgba(20,18,15,.45);}
 .dsmd-gi-photo > *{position:relative;z-index:1;color:#fff;}
 .dsmd-gi-photo h2,.dsmd-gi-photo p{color:#fff;}
-.dsmd-gi-form{background:#fff;padding:64px 56px;display:flex;align-items:center;}
+.dsmd-gi-form{background:#fff;padding:64px 56px;display:flex;align-items:center;flex:1 1 480px;}
 .dsmd-gi-form .wpcf7-form-control-wrap{display:block;margin-bottom:16px;}
 .dsmd-gi-form input[type=text],.dsmd-gi-form input[type=email],.dsmd-gi-form input[type=tel],.dsmd-gi-form input[type=date],.dsmd-gi-form textarea{width:100%;border:1px solid var(--dsmd-border);border-radius:var(--dsmd-radius);padding:12px 14px;font-family:var(--dsmd-font-body);font-size:14px;}
 .dsmd-gi-form textarea{min-height:110px;}
@@ -1455,3 +1460,59 @@ select.dsmd-swatch-select:has(+ .dsmd-swatches) {
 .woocommerce div.product .woocommerce-tabs ul.tabs li.active a{color:var(--dsmd-primary);border-bottom:2px solid var(--dsmd-primary);}
 .woocommerce div.product .related.products{margin-top:64px;}
 .woocommerce div.product .related.products > h2{font-family:var(--dsmd-font-heading);font-size:32px;text-align:center;margin:0 0 32px;}
+
+/* ==========================================================================
+   HARD OVERRIDES — Elementor 4's default global kit color (a light blue)
+   otherwise wins on every heading widget because no per-widget title_color
+   was set when the page JSON was generated. Force brand color everywhere,
+   punch through with the more specific dark/white rules below.
+   ========================================================================== */
+.elementor-heading-title,
+.elementor-widget-heading h1,
+.elementor-widget-heading h2,
+.elementor-widget-heading h3,
+.elementor-widget-heading h4,
+h1, h2, h3, h4 {
+	color: var(--dsmd-primary) !important;
+}
+.dsmd-hero-wordmark,
+.dsmd-hero-wordmark.elementor-heading-title,
+.dsmd-cta-heading,
+.dsmd-cta-heading.elementor-heading-title,
+.dsmd-gi-photo .elementor-heading-title {
+	color: #fff !important;
+}
+.dsmd-archive-title { color: #fff !important; }
+
+/* Why DSM icon marks — Elementor's html widget wrapper stretches to fill
+   its flex parent by default; force the fixed circle size regardless. */
+.dsmd-why-mark,
+.dsmd-why-mark .elementor-widget-container,
+.dsmd-why-mark .elementor-widget-html {
+	width: 80px !important;
+	height: 80px !important;
+	flex: 0 0 80px !important;
+	max-width: 80px !important;
+	overflow: hidden;
+}
+.dsmd-why-mark svg {
+	width: 34px !important;
+	height: 34px !important;
+	stroke: var(--dsmd-secondary-text) !important;
+}
+
+/* Background photos — set directly via CSS rather than relying on
+   Elementor v4's (unverified) background-setting keys, which did not
+   render. Guaranteed to work since it's plain CSS on our own class. */
+.dsmd-gi-photo {
+	background-image: linear-gradient(rgba(20,18,15,.45), rgba(20,18,15,.45)), url('../../../../uploads/2026/07/Retail.webp');
+	background-size: cover;
+	background-position: center center;
+}
+.dsmd-gi-photo::before { content: none; }
+.dsmd-cta-photo {
+	background-image: linear-gradient(rgba(20,15,10,.55), rgba(20,15,10,.55)), url('../../../../uploads/2026/07/g2.webp');
+	background-size: cover;
+	background-position: center center;
+}
+.dsmd-cta-photo::before { content: none; }
