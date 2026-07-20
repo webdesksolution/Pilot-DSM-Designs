@@ -20,8 +20,9 @@
 	   Decorative + small labels only; darken to --dsmd-gold-deep for AA text. */
 	--dsmd-gold: #B89B72;
 	--dsmd-gold-deep: #8C7345;
-	--dsmd-font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+	--dsmd-font-body: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
 	--dsmd-font-heading: 'Playfair Display', Georgia, 'Times New Roman', serif;
+	--dsmd-font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
 	--dsmd-font-label: 'Montserrat', 'Inter', sans-serif;
 	--dsmd-container-width: 1200px;
 	--dsmd-radius: 2px;
@@ -360,8 +361,10 @@ summary:focus-visible,
 	transition: background 0.2s ease, color 0.2s ease;
 }
 .dsmd-btn-primary {
-	background: var(--dsmd-primary);
-	color: var(--dsmd-white);
+	background: var(--dsmd-accent);
+	color: var(--dsmd-primary);
+	border-color: var(--dsmd-accent);
+	padding: 14px 44px;
 }
 .dsmd-btn-primary:hover {
 	background: transparent;
@@ -1245,45 +1248,39 @@ select.dsmd-swatch-select:has(+ .dsmd-swatches) {
    centered hero; defines featured/stats/category/why/financing/testimonials.
    ========================================================================== */
 
-/* Hero */
-.dsmd-hero{background:linear-gradient(180deg,#FBFAF8 0%,var(--dsmd-background) 100%);padding:0;text-align:left;}
-.dsmd-hero-grid{display:grid;grid-template-columns:1.02fr 0.98fr;gap:72px;align-items:center;min-height:600px;padding:64px 24px;}
-.dsmd-hero-copy h1{font-size:60px;line-height:1.04;letter-spacing:-0.025em;margin:0 0 22px;}
-.dsmd-hero-copy h1 em{font-style:italic;color:var(--dsmd-gold-deep);}
-.dsmd-hero-sub{font-size:18px;line-height:1.75;color:var(--dsmd-secondary-text);max-width:42ch;margin:0 0 34px;}
-.dsmd-hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
-.dsmd-hero-media{position:relative;}
-.dsmd-hero-media img{width:100%;aspect-ratio:4/4.7;object-fit:cover;border-radius:var(--dsmd-radius);position:relative;z-index:1;}
-.dsmd-hero-media::before{content:"";position:absolute;inset:18px 18px -18px -18px;border:1px solid var(--dsmd-gold);border-radius:var(--dsmd-radius);z-index:0;}
-.dsmd-hero-badge{position:absolute;left:-6px;bottom:26px;z-index:2;background:var(--dsmd-primary);color:#fff;font-family:var(--dsmd-font-label);font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:12px 18px;}
-.dsmd-hero-badge b{color:var(--dsmd-gold);}
+/* Hero — full-bleed black banner, centered wordmark (reference-exact) */
+.dsmd-hero{background:#000;padding:0;text-align:center;}
+.dsmd-hero-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:600px;padding:64px 24px;}
+.dsmd-hero-wordmark{font-family:var(--dsmd-font-display);font-size:96px;line-height:1.05;letter-spacing:0.01em;color:#fff;margin:0 0 32px;text-transform:uppercase;}
+.dsmd-hero-actions{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;}
+.dsmd-btn-outline-white{background:transparent;border:1px solid #fff;color:#fff;}
+.dsmd-btn-outline-white:hover{background:#fff;color:var(--dsmd-primary);}
 
 /* Section scaffolding */
 .dsmd-section{padding:92px 0;}
 .dsmd-section--alt{background:var(--dsmd-background);}
 .dsmd-sec-head{text-align:center;max-width:640px;margin:0 auto 52px;}
-.dsmd-sec-head .dsmd-section-title{font-size:38px;line-height:1.1;margin:0;}
-.dsmd-rule{display:block;width:44px;height:2px;background:var(--dsmd-gold);margin:16px auto 0;}
+.dsmd-sec-head .dsmd-section-title{font-size:36px;line-height:1.1;margin:0 0 10px;font-family:var(--dsmd-font-heading);}
+.dsmd-sec-head p{color:var(--dsmd-secondary-text);margin:0;}
 
 /* Featured products */
 .dsmd-product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;}
 .dsmd-product-card{background:var(--dsmd-white);border:1px solid var(--dsmd-border);border-radius:var(--dsmd-radius);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .25s ease,transform .25s ease;}
 .dsmd-product-card:hover{box-shadow:0 18px 40px -24px rgba(30,30,30,.35);transform:translateY(-3px);}
-.dsmd-product-thumb{display:block;}
+.dsmd-product-thumb{display:block;background:#000;}
 .dsmd-product-thumb img{aspect-ratio:1/1;object-fit:cover;width:100%;margin:0;}
 .dsmd-product-body{padding:20px;display:flex;flex-direction:column;gap:7px;flex:1;}
 .dsmd-product-name{font-family:var(--dsmd-font-heading);font-size:18px;line-height:1.25;color:var(--dsmd-primary);}
-.dsmd-product-price{color:var(--dsmd-primary);font-weight:600;}
+.dsmd-product-price{color:var(--dsmd-primary);font-weight:600;margin-bottom:8px;}
 .dsmd-product-price .amount{font-weight:600;}
-.dsmd-select{margin-top:auto;font-family:var(--dsmd-font-label);font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--dsmd-gold-deep);padding-top:6px;}
+.dsmd-select{margin-top:auto;display:block;text-align:center;background:var(--dsmd-primary);color:#fff;font-family:var(--dsmd-font-label);font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:14px;border-radius:var(--dsmd-radius);}
 
-/* Trust stats */
-.dsmd-stats{background:var(--dsmd-primary);color:#fff;}
-.dsmd-stats-row{display:grid;grid-template-columns:repeat(3,1fr);padding:64px 24px;text-align:center;}
-.dsmd-stat{padding:0 20px;}
-.dsmd-stat + .dsmd-stat{border-left:1px solid rgba(255,255,255,.14);}
-.dsmd-stat-n{display:block;font-family:var(--dsmd-font-heading);font-size:58px;font-weight:700;color:var(--dsmd-gold);line-height:1;letter-spacing:-0.02em;}
-.dsmd-stat-l{display:block;font-family:var(--dsmd-font-label);font-size:12px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#d7cfc4;margin-top:10px;}
+/* Trust stats — individual cream boxed cards */
+.dsmd-stats{background:var(--dsmd-white);}
+.dsmd-stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.dsmd-stat{background:var(--dsmd-background);padding:32px 20px;text-align:center;}
+.dsmd-stat-n{display:block;font-family:var(--dsmd-font-display);font-size:56px;font-weight:500;color:var(--dsmd-primary);line-height:1;}
+.dsmd-stat-l{display:block;font-family:var(--dsmd-font-label);font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--dsmd-secondary-text);margin-top:10px;}
 
 /* Category grid */
 .dsmd-category-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
@@ -1294,37 +1291,63 @@ select.dsmd-swatch-select:has(+ .dsmd-swatches) {
 .dsmd-category-name{position:absolute;left:22px;bottom:20px;z-index:2;color:#fff;font-family:var(--dsmd-font-heading);font-size:22px;}
 .dsmd-category-count{display:block;font-family:var(--dsmd-font-label);font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,.85);margin-top:4px;}
 
-/* Why DSM */
-.dsmd-why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;}
-.dsmd-why{text-align:center;}
-.dsmd-why-mark{width:54px;height:54px;border:1px solid var(--dsmd-gold);border-radius:50%;display:grid;place-items:center;margin:0 auto 18px;font-family:var(--dsmd-font-heading);font-size:18px;color:var(--dsmd-gold-deep);}
-.dsmd-why h3{font-family:var(--dsmd-font-heading);font-size:19px;margin:0 0 8px;}
-.dsmd-why p{font-size:14px;color:var(--dsmd-secondary-text);margin:0;}
+/* Why DSM — 2x2 icon-card grid */
+.dsmd-why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
+.dsmd-why{display:flex;align-items:flex-start;gap:24px;background:var(--dsmd-background);padding:32px;text-align:left;}
+.dsmd-why-mark{flex:none;width:80px;height:80px;border:1px solid var(--dsmd-border);border-radius:50%;display:grid;place-items:center;background:#fff;}
+.dsmd-why-mark svg{width:34px;height:34px;stroke:var(--dsmd-secondary-text);}
+.dsmd-why h3{font-family:var(--dsmd-font-label);font-size:15px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;margin:0 0 8px;color:var(--dsmd-primary);}
+.dsmd-why p{font-size:14px;line-height:1.6;color:var(--dsmd-secondary-text);margin:0;}
 
 /* Financing */
-.dsmd-financing{background:var(--dsmd-accent);}
-.dsmd-financing-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:56px;align-items:center;padding:72px 24px;}
-.dsmd-financing-grid h2{font-size:32px;margin:0 0 14px;}
+.dsmd-financing{background:var(--dsmd-background);}
+.dsmd-financing-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:56px;align-items:center;}
+.dsmd-financing-grid h2{font-size:32px;margin:0 0 14px;font-family:var(--dsmd-font-heading);}
 .dsmd-financing-text{color:var(--dsmd-secondary-text);margin:0 0 26px;max-width:46ch;}
-.dsmd-financing-panel{aspect-ratio:16/10;background:linear-gradient(135deg,#2A2620,#4a4034);border-radius:var(--dsmd-radius);display:grid;place-items:center;}
-.dsmd-financing-panel span{font-family:var(--dsmd-font-label);font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#c9bda6;}
+.dsmd-financing-panel{background:var(--dsmd-white);border:1px solid var(--dsmd-border);border-radius:var(--dsmd-radius);padding:24px;}
+.dsmd-financing-panel img{width:100%;display:block;}
+.dsmd-btn-outline{background:transparent;border:1px solid var(--dsmd-primary);color:var(--dsmd-primary);}
+.dsmd-btn-outline:hover{background:var(--dsmd-primary);color:#fff;}
 
 /* Testimonials */
 .dsmd-testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
-.dsmd-quote{margin:0;background:var(--dsmd-white);border:1px solid var(--dsmd-border);border-radius:var(--dsmd-radius);padding:30px;}
-.dsmd-stars{color:var(--dsmd-gold);letter-spacing:3px;margin-bottom:14px;}
-.dsmd-quote blockquote{margin:0 0 18px;font-family:var(--dsmd-font-heading);font-size:18px;line-height:1.5;color:var(--dsmd-primary);}
-.dsmd-quote figcaption{font-size:13px;color:var(--dsmd-secondary-text);}
-.dsmd-quote figcaption b{display:block;color:var(--dsmd-primary);font-size:14px;margin-bottom:2px;}
+.dsmd-quote{margin:0;background:var(--dsmd-white);padding:30px;display:flex;flex-direction:column;min-height:100%;}
+.dsmd-stars{color:var(--dsmd-primary);letter-spacing:3px;margin-bottom:14px;font-size:14px;}
+.dsmd-quote blockquote{margin:0 0 24px;font-size:15px;line-height:1.6;color:var(--dsmd-secondary-text);flex:1;}
+.dsmd-quote figcaption{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--dsmd-secondary-text);}
+.dsmd-quote-avatar{width:44px;height:44px;border-radius:50%;background:var(--dsmd-accent);flex:none;display:grid;place-items:center;font-family:var(--dsmd-font-heading);color:var(--dsmd-primary);}
+.dsmd-quote figcaption b{display:block;color:var(--dsmd-primary);font-size:14px;}
+
+/* CTA button row (reused above footer on every page) */
+.dsmd-cta-strip{background:#fff;padding:56px 0;}
+.dsmd-cta-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.dsmd-cta-row .dsmd-btn{width:100%;justify-content:center;text-align:center;}
+
+/* General Inquiries — photo + form split */
+.dsmd-gi-photo{min-height:520px;display:flex;flex-direction:column;justify-content:center;padding:64px 56px;position:relative;}
+.dsmd-gi-photo::before{content:"";position:absolute;inset:0;background:rgba(20,18,15,.45);}
+.dsmd-gi-photo > *{position:relative;z-index:1;color:#fff;}
+.dsmd-gi-photo h2,.dsmd-gi-photo p{color:#fff;}
+.dsmd-gi-form{background:#fff;padding:64px 56px;display:flex;align-items:center;}
+.dsmd-gi-form .wpcf7-form-control-wrap{display:block;margin-bottom:16px;}
+.dsmd-gi-form input[type=text],.dsmd-gi-form input[type=email],.dsmd-gi-form input[type=tel],.dsmd-gi-form input[type=date],.dsmd-gi-form textarea{width:100%;border:1px solid var(--dsmd-border);border-radius:var(--dsmd-radius);padding:12px 14px;font-family:var(--dsmd-font-body);font-size:14px;}
+.dsmd-gi-form textarea{min-height:110px;}
+.dsmd-gi-form input[type=submit]{background:var(--dsmd-primary);color:#fff;border:0;border-radius:var(--dsmd-radius);padding:14px 32px;font-family:var(--dsmd-font-label);font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;width:100%;}
+
+/* Design Your Signature Space — full-bleed photo CTA */
+.dsmd-cta-photo{position:relative;min-height:480px;display:flex;align-items:center;justify-content:center;text-align:center;}
+.dsmd-cta-photo::before{content:"";position:absolute;inset:0;background:rgba(20,15,10,.55);}
+.dsmd-cta-photo .dsmd-cta-block{position:relative;z-index:1;}
+.dsmd-cta-heading,.dsmd-cta-text{color:#fff;}
+.dsmd-cta-block{max-width:640px;margin:0 auto;padding:72px 24px;}
 
 /* Homepage responsive */
 @media (max-width:900px){
-	.dsmd-hero-grid,.dsmd-financing-grid{grid-template-columns:1fr;gap:40px;}
-	.dsmd-hero-copy h1{font-size:42px;}
+	.dsmd-financing-grid{grid-template-columns:1fr;gap:40px;}
+	.dsmd-hero-wordmark{font-size:52px;}
 	.dsmd-product-grid,.dsmd-why-grid{grid-template-columns:repeat(2,1fr);}
 	.dsmd-category-grid,.dsmd-testimonials,.dsmd-stats-row{grid-template-columns:1fr;}
-	.dsmd-stat + .dsmd-stat{border-left:none;border-top:1px solid rgba(255,255,255,.14);padding-top:28px;margin-top:28px;}
-	.dsmd-hero-media::before{display:none;}
+	.dsmd-cta-row{grid-template-columns:repeat(2,1fr);}
 }
 
 /* ==========================================================================
@@ -1366,16 +1389,69 @@ select.dsmd-swatch-select:has(+ .dsmd-swatches) {
 .dsmd-gallery-cta{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;color:#fff;font-family:var(--dsmd-font-label);font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;opacity:0;transition:opacity .25s ease;}
 .dsmd-gallery-card:hover .dsmd-gallery-cta{opacity:1;}
 
-/* Financing (Brickhouse Capital) */
-.dsmd-financing-panel{aspect-ratio:auto;background:none;display:block;}
-.dsmd-financing-panel img{width:100%;border-radius:var(--dsmd-radius);display:block;}
-
-/* General Inquiries + Design CTA (contact-block sections) */
-.dsmd-contact-block{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;padding:72px 24px;}
-.dsmd-cta-block{text-align:center;max-width:640px;margin:0 auto;padding:72px 24px;}
-.dsmd-cta-block .dsmd-financing-text{margin-left:auto;margin-right:auto;}
-
 @media (max-width:900px){
 	.dsmd-gallery-grid{grid-template-columns:1fr;}
-	.dsmd-contact-block{grid-template-columns:1fr;gap:32px;}
+	.dsmd-contact-block{flex-direction:column !important;}
+	.dsmd-gi-photo,.dsmd-gi-form{padding:40px 24px;}
 }
+
+/* ==========================================================================
+   WooCommerce archive (category/shop) — hooks + CSS only, no template
+   overrides (WC-001). Matches reference: photo banner, filter sidebar,
+   3-col product grid, dark full-width buttons.
+   ========================================================================== */
+
+.dsmd-archive-banner{position:relative;min-height:280px;display:flex;flex-direction:column;justify-content:center;background:var(--dsmd-primary) center/cover no-repeat;padding:48px 0;}
+.dsmd-archive-banner::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,18,15,.35) 0%,rgba(20,18,15,.65) 100%);}
+.dsmd-archive-banner .dsmd-container{position:relative;z-index:1;}
+.dsmd-archive-breadcrumb{color:rgba(255,255,255,.75);font-family:var(--dsmd-font-label);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:12px;}
+.dsmd-archive-breadcrumb a{color:rgba(255,255,255,.75);}
+.dsmd-archive-title{font-family:var(--dsmd-font-heading);color:#fff;font-size:44px;margin:0 0 14px;}
+.dsmd-archive-rule{display:block;width:44px;height:2px;background:#fff;margin-bottom:12px;}
+.dsmd-archive-sub{color:rgba(255,255,255,.75);margin:0;font-size:14px;}
+
+.dsmd-shop-layout{display:flex;gap:40px;align-items:flex-start;padding:40px 0;}
+.dsmd-shop-filter{flex:0 0 260px;}
+.dsmd-shop-filter h3{font-family:var(--dsmd-font-heading);font-size:24px;margin:0 0 20px;}
+.dsmd-shop-main{flex:1;min-width:0;}
+
+.woocommerce-result-count,.woocommerce-ordering{font-family:var(--dsmd-font-body);font-size:14px;color:var(--dsmd-secondary-text);}
+
+.woocommerce ul.products{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;list-style:none;margin:0;padding:0;}
+.woocommerce ul.products li.product{background:var(--dsmd-white);border:1px solid var(--dsmd-border);border-radius:var(--dsmd-radius);overflow:hidden;padding:0 !important;}
+.woocommerce ul.products li.product img{width:100%;aspect-ratio:1/1;object-fit:cover;background:#000;}
+.woocommerce ul.products li.product .woocommerce-loop-product__title{font-family:var(--dsmd-font-heading);font-size:18px;color:var(--dsmd-primary);padding:16px 20px 4px;display:block;}
+.woocommerce ul.products li.product .price{padding:0 20px;color:var(--dsmd-primary);font-weight:600;display:block;}
+.woocommerce ul.products li.product .button{display:block;margin:16px 20px 20px;width:calc(100% - 40px);text-align:center;background:var(--dsmd-primary);color:#fff;border-radius:var(--dsmd-radius);padding:14px;font-family:var(--dsmd-font-label);font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;}
+.woocommerce ul.products li.product .button:hover{background:var(--dsmd-secondary-text);color:#fff;}
+.woocommerce ul.products li.product .star-rating{display:none;}
+
+.woocommerce nav.woocommerce-pagination ul{border:0;display:flex;gap:8px;}
+.woocommerce nav.woocommerce-pagination ul li{border:0;}
+.woocommerce nav.woocommerce-pagination ul li a,.woocommerce nav.woocommerce-pagination ul li span{border:1px solid var(--dsmd-border);border-radius:var(--dsmd-radius);padding:10px 16px;font-family:var(--dsmd-font-label);font-size:13px;}
+.woocommerce nav.woocommerce-pagination ul li span.current{background:var(--dsmd-primary);color:#fff;border-color:var(--dsmd-primary);}
+
+@media (max-width:900px){
+	.dsmd-shop-layout{flex-direction:column;}
+	.dsmd-shop-filter{flex:1 1 auto;}
+	.woocommerce ul.products{grid-template-columns:repeat(2,1fr);}
+}
+
+/* ==========================================================================
+   WooCommerce single product — hooks + CSS only (WC-001).
+   ========================================================================== */
+
+.woocommerce div.product{padding:40px 0;}
+.woocommerce div.product .woocommerce-breadcrumb{font-family:var(--dsmd-font-label);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--dsmd-secondary-text);margin-bottom:24px;}
+.woocommerce div.product div.images img{border-radius:var(--dsmd-radius);}
+.woocommerce div.product .product_title{font-family:var(--dsmd-font-heading);font-size:34px;margin:0 0 12px;}
+.woocommerce div.product p.price,.woocommerce div.product span.price{font-family:var(--dsmd-font-body);color:var(--dsmd-primary);font-weight:600;font-size:20px;}
+.woocommerce div.product .woocommerce-product-details__short-description{color:var(--dsmd-secondary-text);font-style:italic;}
+.woocommerce div.product form.cart .button,
+.woocommerce div.product .single_add_to_cart_button{background:var(--dsmd-primary);color:#fff;border-radius:var(--dsmd-radius);padding:16px 32px;font-family:var(--dsmd-font-label);font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;}
+.woocommerce div.product .woocommerce-tabs ul.tabs{border-bottom:1px solid var(--dsmd-border);padding:0;margin:0 0 24px;list-style:none;display:flex;gap:24px;}
+.woocommerce div.product .woocommerce-tabs ul.tabs li{margin:0;}
+.woocommerce div.product .woocommerce-tabs ul.tabs li a{font-family:var(--dsmd-font-label);font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--dsmd-secondary-text);padding-bottom:12px;display:inline-block;}
+.woocommerce div.product .woocommerce-tabs ul.tabs li.active a{color:var(--dsmd-primary);border-bottom:2px solid var(--dsmd-primary);}
+.woocommerce div.product .related.products{margin-top:64px;}
+.woocommerce div.product .related.products > h2{font-family:var(--dsmd-font-heading);font-size:32px;text-align:center;margin:0 0 32px;}

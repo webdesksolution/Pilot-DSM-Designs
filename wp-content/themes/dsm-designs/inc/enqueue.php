@@ -18,12 +18,12 @@ function dsmd_asset_version( $relative_path ) {
 }
 
 function dsmd_enqueue_frontend() {
-	// Brand fonts matching the approved design direction: Playfair Display
-	// (headings), Inter (body), Montserrat (labels). Google Fonts with
-	// preconnect; swap to self-hosted before launch if privacy/perf requires.
+	// Fonts matching the live reference (dsmdesigns.dreamhosters.com):
+	// Cormorant Garamond (hero display), Playfair Display (section
+	// headings), Roboto (body), Montserrat (nav/buttons/labels).
 	wp_enqueue_style(
 		'dsmd-fonts',
-		'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600&family=Montserrat:wght@500;600&display=swap',
+		'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Playfair+Display:wght@400;600;700&family=Roboto:wght@400;500&family=Montserrat:wght@500;600&display=swap',
 		array(),
 		null
 	);
