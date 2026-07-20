@@ -20,3 +20,4 @@ require_once DSMD_THEME_DIR . '/inc/customizer.php';
 require_once DSMD_THEME_DIR . '/inc/mega-menu.php';
 require_once DSMD_THEME_DIR . '/inc/emails.php';
 require_once DSMD_THEME_DIR . '/inc/swatches.php';
+require_once DSMD_THEME_DIR . '/inc/shortcodes.php';

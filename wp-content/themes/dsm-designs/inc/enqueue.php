@@ -44,3 +44,20 @@ function dsmd_enqueue_frontend() {
 	);
 }
 add_action( 'wp_enqueue_scripts', 'dsmd_enqueue_frontend' );
+
+/**
+ * Load the Google Fonts stylesheet asynchronously so it never blocks first
+ * paint (preload + swap-on-load, noscript fallback).
+ */
+function dsmd_async_google_fonts( $html, $handle ) {
+	if ( 'dsmd-fonts' !== $handle ) {
+		return $html;
+	}
+	if ( ! preg_match( "/href=['\"]([^'\"]+)['\"]/", $html, $m ) ) {
+		return $html;
+	}
+	$href = $m[1];
+	return '<link rel="preload" as="style" href="' . esc_url( $href ) . '" onload="this.onload=null;this.rel=\'stylesheet\'">'
+		. '<noscript><link rel="stylesheet" href="' . esc_url( $href ) . '"></noscript>';
+}
+add_filter( 'style_loader_tag', 'dsmd_async_google_fonts', 10, 2 );
