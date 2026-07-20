@@ -1,0 +1,1357 @@
+/* DSM Designs — Quiet Luxury theme
+   Palette per client design questionnaire (2026-07-15):
+   Primary #1E1E1E (soft charcoal), Secondary #B8ADA4 (taupe),
+   Accent #D8CEC6 (warm beige), Background #F6F4F1 (off-white) */
+
+:root {
+	--dsmd-primary: #1E1E1E;
+	--dsmd-secondary: #B8ADA4;
+	/* Same hue as --dsmd-secondary, darkened for WCAG AA text contrast.
+	   Raw #B8ADA4 as text is ~2.2:1 on white/background — fails AA (needs 4.5:1).
+	   Use this for any TEXT that would otherwise be secondary-colored; keep
+	   --dsmd-secondary itself for backgrounds/borders/decorative fills only,
+	   where contrast rules don't apply the same way. */
+	--dsmd-secondary-text: #726459;
+	--dsmd-accent: #D8CEC6;
+	--dsmd-background: #F6F4F1;
+	--dsmd-white: #FFFFFF;
+	--dsmd-border: #E4DFDA;
+	/* Brass/gold accent — matches approved design direction (#B89B72).
+	   Decorative + small labels only; darken to --dsmd-gold-deep for AA text. */
+	--dsmd-gold: #B89B72;
+	--dsmd-gold-deep: #8C7345;
+	--dsmd-font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+	--dsmd-font-heading: 'Playfair Display', Georgia, 'Times New Roman', serif;
+	--dsmd-font-label: 'Montserrat', 'Inter', sans-serif;
+	--dsmd-container-width: 1200px;
+	--dsmd-radius: 2px;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	background: var(--dsmd-background);
+	color: var(--dsmd-primary);
+	font-family: var(--dsmd-font-body);
+	line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+	font-family: var(--dsmd-font-heading);
+	font-weight: 400;
+	line-height: 1.2;
+	color: var(--dsmd-primary);
+}
+
+a {
+	color: var(--dsmd-primary);
+	text-decoration: none;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+	display: block;
+}
+
+.dsmd-container {
+	max-width: var(--dsmd-container-width);
+	margin: 0 auto;
+	padding: 0 24px;
+}
+
+.screen-reader-text {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(1px, 1px, 1px, 1px);
+}
+
+/* Skip link — screen-reader-text hides it until keyboard focus reveals it */
+.skip-link:focus {
+	position: fixed;
+	left: 16px;
+	top: 16px;
+	width: auto;
+	height: auto;
+	clip: auto;
+	overflow: visible;
+	background: var(--dsmd-primary);
+	color: var(--dsmd-white);
+	padding: 12px 20px;
+	border-radius: var(--dsmd-radius);
+	z-index: 100000;
+	font-size: 14px;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
+
+/* Global keyboard focus indicator (WCAG 2.4.7 AA). Applies to every interactive
+   element via :focus-visible so it shows for keyboard use but not mouse click.
+   The #primary skip target (tabindex="-1") is excluded — it's programmatic. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible,
+[tabindex="0"]:focus-visible,
+.dsmd-btn:focus-visible,
+.button:focus-visible {
+	outline: 2px solid var(--dsmd-secondary-text);
+	outline-offset: 2px;
+	border-radius: var(--dsmd-radius);
+}
+#primary:focus,
+#primary:focus-visible {
+	outline: none;
+}
+
+/* Respect reduced-motion preference (WCAG 2.3.3 / motion sensitivity). */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		transition-duration: 0.01ms !important;
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		scroll-behavior: auto !important;
+	}
+}
+
+/* Logo — never trust the raw upload size (see theme-structure-patterns anti-pattern 11) */
+.custom-logo {
+	height: 40px;
+	width: auto;
+	object-fit: contain;
+}
+.site-footer .custom-logo {
+	height: 32px;
+	opacity: 0.8;
+}
+
+/* Header */
+.site-header {
+	background: var(--dsmd-white);
+	border-bottom: 1px solid var(--dsmd-border);
+	position: sticky;
+	top: 0;
+	z-index: 100;
+}
+.dsmd-header-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 24px;
+	padding-top: 16px;
+	padding-bottom: 16px;
+}
+.site-title {
+	font-family: var(--dsmd-font-heading);
+	font-size: 22px;
+	letter-spacing: 0.02em;
+}
+.primary-nav {
+	flex: 1;
+	display: flex;
+	justify-content: center;
+}
+.primary-nav ul {
+	display: flex;
+	gap: 28px;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.primary-nav li {
+	position: relative;
+}
+.primary-nav a {
+	font-family: var(--dsmd-font-label);
+	font-weight: 600;
+	font-size: 12px;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	padding: 8px 0;
+	display: inline-block;
+}
+.primary-nav a:hover {
+	color: var(--dsmd-secondary-text);
+}
+.primary-nav ul ul {
+	display: none;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	flex-direction: column;
+	background: var(--dsmd-white);
+	border: 1px solid var(--dsmd-border);
+	min-width: 220px;
+	padding: 8px 0;
+	gap: 0;
+}
+.primary-nav li:hover > ul {
+	display: flex;
+}
+.primary-nav ul ul a {
+	padding: 8px 16px;
+	text-transform: none;
+	white-space: nowrap;
+}
+
+/* Mega menu — "Shop" only. Tier 1 = product categories (per SOW Module 3:
+   dynamic mega menu, full-width, category images per top-tier item).
+   .menu-item-has-children is auto-added by WP's core nav walker.
+   Made static (overriding the generic li{position:relative} above) so its
+   absolutely-positioned child's containing block bubbles up to .site-header
+   (position:sticky), giving a true full-bleed panel with no JS geometry. */
+.primary-nav li.menu-item-has-children {
+	position: static;
+}
+.primary-nav li.menu-item-has-children > ul {
+	left: 0;
+	right: 0;
+	width: 100%;
+	min-width: 0;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 0;
+	padding: 32px 0;
+	border-left: none;
+	border-right: none;
+}
+.primary-nav li.menu-item-has-children > ul > li {
+	flex: 1 1 0;
+	max-width: 200px;
+}
+.primary-nav li.menu-item-has-children > ul > li > a {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 12px;
+	padding: 12px 16px;
+	text-align: center;
+	white-space: normal;
+}
+.primary-nav li.menu-item-has-children > ul > li > a::before {
+	content: "";
+	display: block;
+	width: 100%;
+	aspect-ratio: 4 / 3;
+	background: var(--dsmd-accent);
+	border-radius: var(--dsmd-radius);
+}
+.primary-nav li.menu-item-has-children > ul > li:nth-child(even) > a::before {
+	background: var(--dsmd-secondary);
+}
+
+/* Mobile submenu toggle button — hidden on desktop, JS-injected (see main.js) */
+.submenu-toggle {
+	display: none;
+}
+.nav-toggle {
+	display: none;
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 8px;
+}
+.nav-toggle-bars,
+.nav-toggle-bars::before,
+.nav-toggle-bars::after {
+	display: block;
+	width: 22px;
+	height: 2px;
+	background: var(--dsmd-primary);
+	position: relative;
+}
+.nav-toggle-bars::before { content: ""; position: absolute; top: -7px; }
+.nav-toggle-bars::after { content: ""; position: absolute; top: 7px; }
+
+.header-cart {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 36px;
+	height: 36px;
+	border: 1px solid var(--dsmd-border);
+	border-radius: 50%;
+}
+.cart-count {
+	font-size: 12px;
+}
+
+/* Hero */
+.dsmd-hero {
+	background: var(--dsmd-accent);
+	padding: 96px 0;
+	text-align: center;
+}
+.dsmd-hero-inner {
+	max-width: 720px;
+}
+.dsmd-eyebrow {
+	font-family: var(--dsmd-font-label);
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.18em;
+	font-size: 12px;
+	color: var(--dsmd-gold-deep);
+	margin: 0 0 16px;
+}
+.dsmd-hero h1 {
+	font-size: 40px;
+	margin: 0 0 16px;
+}
+.dsmd-hero-sub {
+	font-size: 18px;
+	/* --dsmd-secondary-text (#726459) on the accent hero bg (#D8CEC6) is only
+	   ~3.7:1 — fails AA for normal text. Charcoal keeps AA (~10:1); visual
+	   hierarchy comes from size, not colour. */
+	color: var(--dsmd-primary);
+	margin: 0 0 32px;
+}
+.dsmd-hero-actions {
+	display: flex;
+	gap: 16px;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.dsmd-hero-compact {
+	padding: 56px 0;
+}
+.dsmd-hero-compact h1 {
+	font-size: 32px;
+	margin: 0;
+}
+
+.dsmd-about-body {
+	max-width: 760px;
+	padding: 64px 24px;
+}
+.dsmd-about-body p {
+	font-size: 17px;
+	margin-bottom: 24px;
+}
+.dsmd-about-cta {
+	margin-top: 16px;
+}
+
+/* Buttons */
+.dsmd-btn {
+	display: inline-block;
+	font-family: var(--dsmd-font-label);
+	font-weight: 600;
+	padding: 14px 32px;
+	border: 1px solid var(--dsmd-primary);
+	border-radius: var(--dsmd-radius);
+	font-size: 12px;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	transition: background 0.2s ease, color 0.2s ease;
+}
+.dsmd-btn-primary {
+	background: var(--dsmd-primary);
+	color: var(--dsmd-white);
+}
+.dsmd-btn-primary:hover {
+	background: transparent;
+	color: var(--dsmd-primary);
+}
+
+/* Section titles */
+.dsmd-section-title {
+	text-align: center;
+	font-size: 28px;
+	margin: 0 0 40px;
+}
+
+/* Category grid */
+.dsmd-categories,
+.dsmd-featured {
+	padding: 72px 0;
+}
+.dsmd-category-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 20px;
+}
+.dsmd-category-card {
+	background: var(--dsmd-white);
+	border: 1px solid var(--dsmd-border);
+	padding: 40px 20px;
+	text-align: center;
+	transition: border-color 0.2s ease;
+}
+.dsmd-category-card:hover {
+	border-color: var(--dsmd-secondary);
+}
+.dsmd-category-name {
+	font-family: var(--dsmd-font-heading);
+	font-size: 18px;
+}
+
+/* Product grid (homepage featured + WooCommerce archive share this look) */
+.dsmd-product-grid,
+ul.products {
+	display: grid !important;
+	grid-template-columns: repeat(3, 1fr) !important;
+	gap: 28px;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.dsmd-product-card,
+ul.products li.product {
+	background: var(--dsmd-white);
+	border: 1px solid var(--dsmd-border);
+	padding: 20px;
+	display: block;
+}
+.dsmd-product-thumb img,
+ul.products li.product img {
+	aspect-ratio: 4 / 3;
+	object-fit: cover;
+	margin-bottom: 16px;
+}
+.dsmd-product-name {
+	display: block;
+	font-family: var(--dsmd-font-heading);
+	font-size: 16px;
+	margin-bottom: 4px;
+}
+.dsmd-product-price {
+	color: var(--dsmd-secondary-text);
+	font-size: 14px;
+}
+ul.products li.product .price {
+	color: var(--dsmd-secondary-text);
+	font-size: 14px;
+}
+
+/* WooCommerce single product / cart / checkout — light-touch styling only, no template overrides */
+.woocommerce-main {
+	padding: 56px 0;
+}
+nav.woocommerce-breadcrumb {
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	color: var(--dsmd-secondary-text) !important;
+	margin-bottom: 32px;
+	display: block;
+}
+.woocommerce-breadcrumb a {
+	color: var(--dsmd-primary);
+}
+.woocommerce div.product .woocommerce-tabs ul.tabs li,
+.woocommerce a.button,
+.woocommerce button.button,
+.woocommerce #respond input#submit,
+.woocommerce input.button {
+	background: var(--dsmd-primary);
+	color: var(--dsmd-white);
+	border-radius: var(--dsmd-radius);
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	font-size: 13px;
+}
+.woocommerce a.button:hover,
+.woocommerce button.button:hover,
+.woocommerce input.button:hover {
+	background: var(--dsmd-primary);
+	color: var(--dsmd-white);
+	opacity: 0.85;
+}
+.woocommerce span.onsale {
+	background: var(--dsmd-primary);
+}
+.woocommerce ul.products li.product .price {
+	color: var(--dsmd-primary);
+}
+
+/* Cart / Checkout — WooCommerce BLOCKS markup (wc-block-*), not the classic
+   .woocommerce-cart/.woocommerce-checkout templates. Verified against the
+   live DOM in a real browser session: this install's Cart and Checkout
+   pages render via the React-based Cart/Checkout blocks (WC 10.x default),
+   so classic-template selectors like table.shop_table or #place_order
+   never match anything here. My Account / Login still use classic markup
+   (checked separately) and keep their own rules below. */
+.wc-block-cart,
+.wc-block-checkout {
+	--wc-block-color-primary: var(--dsmd-primary);
+}
+.wc-block-components-text-input input,
+.wc-block-components-text-input textarea,
+.wc-block-components-address-form select,
+.wc-block-components-combobox-control input {
+	border: 1px solid var(--dsmd-border) !important;
+	border-radius: var(--dsmd-radius) !important;
+	background: var(--dsmd-white);
+}
+.wc-block-components-checkout-place-order-button,
+.wc-block-cart__submit-button,
+.wc-block-components-button {
+	background-color: var(--dsmd-primary) !important;
+	color: var(--dsmd-white) !important;
+	border-radius: var(--dsmd-radius) !important;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	font-size: 13px !important;
+}
+.wc-block-components-checkout-place-order-button:hover,
+.wc-block-cart__submit-button:hover,
+.wc-block-components-button:hover {
+	background-color: var(--dsmd-secondary) !important;
+}
+.wc-block-components-checkout-step__title,
+.wc-block-components-title {
+	font-family: var(--dsmd-font-heading);
+	font-weight: 400;
+}
+.wp-block-woocommerce-cart-order-summary-block,
+.wp-block-woocommerce-checkout-order-summary-block,
+.wc-block-components-panel {
+	background: var(--dsmd-white);
+	border: 1px solid var(--dsmd-border);
+	padding: 24px;
+}
+.wc-block-components-totals-item {
+	border-top: 1px solid var(--dsmd-border);
+	padding-top: 12px;
+}
+.wc-block-components-radio-control--highlight-checked .wc-block-components-radio-control__input:checked {
+	background-color: var(--dsmd-primary);
+	border-color: var(--dsmd-primary);
+}
+.wc-block-cart-item__image img,
+.wc-block-components-product-image img {
+	width: 72px;
+	height: 72px;
+	object-fit: cover;
+}
+
+/* My Account / Login (still classic markup, confirmed separately) */
+.woocommerce form .form-row input.input-text,
+.woocommerce form .form-row textarea,
+.woocommerce form .form-row select {
+	border: 1px solid var(--dsmd-border);
+	border-radius: var(--dsmd-radius);
+	padding: 10px 12px;
+	background: var(--dsmd-white);
+}
+
+/* My Account */
+.woocommerce-account .woocommerce-MyAccount-navigation {
+	background: var(--dsmd-white);
+	border: 1px solid var(--dsmd-border);
+	padding: 8px 0;
+}
+.woocommerce-account .woocommerce-MyAccount-navigation ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.woocommerce-account .woocommerce-MyAccount-navigation li a {
+	display: block;
+	padding: 10px 20px;
+	font-size: 13px;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+}
+.woocommerce-account .woocommerce-MyAccount-navigation li.is-active a {
+	color: var(--dsmd-secondary-text);
+	font-weight: 600;
+}
+.woocommerce-MyAccount-content {
+	background: var(--dsmd-white);
+	border: 1px solid var(--dsmd-border);
+	padding: 24px;
+}
+
+/* Login / Register */
+.woocommerce form.woocommerce-form-login,
+.woocommerce form.woocommerce-form-register {
+	background: var(--dsmd-white);
+	border: 1px solid var(--dsmd-border);
+	padding: 32px;
+	max-width: 460px;
+	margin: 0 auto;
+}
+
+/* Thank You / Order Received page (classic markup, confirmed via live DOM) */
+.woocommerce-order-received .woocommerce-thankyou-order-received {
+	background: var(--dsmd-accent);
+	padding: 32px;
+	text-align: center;
+	margin-bottom: 32px;
+	font-size: 18px;
+}
+.woocommerce-order-received .woocommerce-order-overview {
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 24px;
+	padding: 24px;
+	margin: 0 0 32px;
+	background: var(--dsmd-white);
+	border: 1px solid var(--dsmd-border);
+}
+.woocommerce-order-received .woocommerce-order-overview li {
+	text-transform: uppercase;
+	font-size: 11px;
+	letter-spacing: 0.05em;
+	color: var(--dsmd-secondary-text);
+}
+.woocommerce-order-received .woocommerce-order-overview li strong {
+	display: block;
+	color: var(--dsmd-primary);
+	font-size: 15px;
+	text-transform: none;
+	margin-top: 4px;
+}
+.woocommerce-order-received table.shop_table {
+	border: 1px solid var(--dsmd-border);
+	border-collapse: collapse;
+	width: 100%;
+	margin-bottom: 32px;
+}
+.woocommerce-order-received table.shop_table th,
+.woocommerce-order-received table.shop_table td {
+	padding: 14px;
+	border-bottom: 1px solid var(--dsmd-border);
+	text-align: left;
+}
+.woocommerce-order-received table.shop_table th {
+	background: var(--dsmd-background);
+	text-transform: uppercase;
+	font-size: 12px;
+}
+.woocommerce-order-received .woocommerce-customer-details address {
+	background: var(--dsmd-white);
+	border: 1px solid var(--dsmd-border);
+	padding: 20px;
+	font-style: normal;
+}
+.woocommerce-order-received .woocommerce-columns {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 24px;
+}
+
+/* Contact Form 7 */
+.wpcf7-form p {
+	margin-bottom: 20px;
+}
+.wpcf7-form label {
+	display: block;
+	font-size: 13px;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	margin-bottom: 6px;
+	color: var(--dsmd-secondary-text);
+}
+.wpcf7-form input[type="text"],
+.wpcf7-form input[type="email"],
+.wpcf7-form input[type="tel"],
+.wpcf7-form input[type="file"],
+.wpcf7-form textarea {
+	width: 100%;
+	max-width: 480px;
+	border: 1px solid var(--dsmd-border);
+	border-radius: var(--dsmd-radius);
+	padding: 10px 12px;
+	background: var(--dsmd-white);
+	font-family: var(--dsmd-font-body);
+	font-size: 14px;
+}
+.wpcf7-form textarea {
+	min-height: 120px;
+}
+.wpcf7-form input[type="submit"] {
+	background: var(--dsmd-primary);
+	color: var(--dsmd-white);
+	border: none;
+	border-radius: var(--dsmd-radius);
+	padding: 14px 32px;
+	font-size: 13px;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	cursor: pointer;
+}
+.wpcf7-form input[type="submit"]:hover {
+	background: var(--dsmd-secondary-text);
+}
+.wpcf7-not-valid-tip {
+	color: #B3261E;
+	font-size: 12px;
+	margin-top: 4px;
+	display: block;
+}
+.wpcf7-response-output {
+	border-radius: var(--dsmd-radius);
+	padding: 12px 16px;
+	margin-top: 16px;
+}
+
+/* Category archive header banner (distinct from generic shop page) */
+.tax-product_cat .woocommerce-products-header {
+	background: var(--dsmd-accent);
+	padding: 56px 24px;
+	margin: -56px calc(-50vw + 50%) 40px;
+	text-align: center;
+}
+.tax-product_cat .woocommerce-products-header__title.page-title {
+	font-family: var(--dsmd-font-heading);
+	font-size: 32px;
+	margin: 0 0 12px;
+}
+.tax-product_cat .woocommerce-products-header .term-description {
+	max-width: 560px;
+	margin: 0 auto;
+	font-size: 15px;
+	opacity: 0.85;
+}
+
+/* Archive / blog grid */
+.dsmd-archive-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 32px;
+}
+.archive-header,
+.dsmd-404 {
+	text-align: center;
+	padding: 48px 0;
+}
+
+/* Footer */
+.site-footer {
+	background: var(--dsmd-primary);
+	color: var(--dsmd-background);
+	margin-top: 80px;
+}
+.dsmd-footer-row {
+	padding: 48px 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 20px;
+	text-align: center;
+}
+.footer-nav ul {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 20px;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.footer-nav a {
+	color: var(--dsmd-background);
+	font-size: 13px;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	opacity: 0.85;
+}
+.footer-nav a:hover {
+	opacity: 1;
+}
+.footer-copy {
+	font-size: 12px;
+	opacity: 0.6;
+	margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 782px) {
+	.nav-toggle {
+		display: inline-flex;
+	}
+	.primary-nav {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		right: 0;
+		background: var(--dsmd-white);
+		display: none;
+	}
+	.primary-nav.is-open {
+		display: block;
+	}
+	.primary-nav ul {
+		flex-direction: column;
+		padding: 16px 24px;
+	}
+	.primary-nav ul ul {
+		position: static;
+		border: none;
+		padding-left: 16px;
+	}
+	.dsmd-category-grid,
+	.dsmd-product-grid,
+	ul.products,
+	.dsmd-archive-grid {
+		grid-template-columns: 1fr !important;
+	}
+	.dsmd-hero h1 {
+		font-size: 28px;
+	}
+
+	/* Mega menu -> accordion on mobile. :hover doesn't work reliably on touch,
+	   so this overrides the desktop hover-panel entirely in favor of the
+	   JS-driven .submenu-open toggle (see main.js submenu-toggle button). */
+	.primary-nav li.menu-item-has-children {
+		position: relative;
+	}
+	.primary-nav li.menu-item-has-children > ul {
+		display: none;
+		position: static;
+		width: auto;
+		flex-direction: column;
+		padding: 0 0 8px 16px;
+	}
+	.primary-nav li.menu-item-has-children.submenu-open > ul {
+		display: flex;
+	}
+	.primary-nav li.menu-item-has-children > ul > li {
+		max-width: none;
+		flex: none;
+	}
+	.primary-nav li.menu-item-has-children > ul > li > a {
+		flex-direction: row;
+		justify-content: flex-start;
+		text-align: left;
+		padding: 8px 0;
+	}
+	.primary-nav li.menu-item-has-children > ul > li > a::before {
+		display: none;
+	}
+	.submenu-toggle {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		position: absolute;
+		right: 0;
+		top: 2px;
+		width: 32px;
+		height: 32px;
+		border: 1px solid var(--dsmd-border);
+		background: var(--dsmd-white);
+		font-size: 18px;
+		line-height: 1;
+	}
+}
+
+/* Dynamic category mega menu — desktop tier 2/3 (MOD-12).
+   Subcategories injected by inc/mega-menu.php render as a static stacked list
+   inside each top-tier column (not a nested hover fly-out). Scoped to desktop
+   so the mobile accordion (<=782px) keeps its own display rules. */
+@media (min-width: 783px) {
+	.primary-nav li.menu-item-has-children > ul > li ul {
+		position: static;
+		display: block;
+		width: auto;
+		min-width: 0;
+		margin: 0;
+		padding: 8px 0 0;
+		background: transparent;
+		border: none;
+	}
+	.primary-nav li.menu-item-has-children > ul > li ul a {
+		padding: 4px 16px;
+		font-size: 13px;
+		text-transform: none;
+		white-space: normal;
+		color: var(--dsmd-secondary-text);
+	}
+	.primary-nav li.menu-item-has-children > ul > li ul a:hover {
+		color: var(--dsmd-primary);
+	}
+	/* Tier-2/3 items are text-only — suppress the top-tier image placeholder. */
+	.primary-nav li.menu-item-has-children > ul > li ul li > a::before {
+		display: none;
+	}
+}
+
+/* ==========================================================================
+   MOD-07 — Category/archive toolbar (result count + ordering)
+   Light-touch styling of default WooCommerce markup (WC-001: no overrides).
+   ========================================================================== */
+.woocommerce-result-count {
+	color: var(--dsmd-secondary-text);
+	font-size: 13px;
+	margin: 0 0 20px;
+}
+.woocommerce-ordering select,
+.woocommerce .woocommerce-ordering select {
+	font-family: var(--dsmd-font-body);
+	font-size: 13px;
+	padding: 8px 12px;
+	border: 1px solid var(--dsmd-border);
+	border-radius: var(--dsmd-radius);
+	background: var(--dsmd-white);
+	color: var(--dsmd-primary);
+}
+.woocommerce nav.woocommerce-pagination ul {
+	border: none;
+	display: flex;
+	gap: 8px;
+	justify-content: center;
+	margin-top: 40px;
+}
+.woocommerce nav.woocommerce-pagination ul li {
+	border: none;
+}
+.woocommerce nav.woocommerce-pagination ul li a,
+.woocommerce nav.woocommerce-pagination ul li span {
+	border: 1px solid var(--dsmd-border);
+	border-radius: var(--dsmd-radius);
+	padding: 8px 14px;
+	color: var(--dsmd-primary);
+}
+.woocommerce nav.woocommerce-pagination ul li span.current {
+	background: var(--dsmd-primary);
+	color: var(--dsmd-white);
+	border-color: var(--dsmd-primary);
+}
+
+/* ==========================================================================
+   MOD-08 — Product detail (PDP)
+   Two-column gallery/summary on desktop; stacks on mobile. Styles default WC
+   single-product markup only. Option/add-on + swatch UI = MOD-15/MOD-16
+   (BLOCKED, not styled here).
+   ========================================================================== */
+.single-product div.product {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+	gap: 48px;
+	align-items: start;
+}
+.single-product div.product .woocommerce-product-gallery {
+	width: 100% !important;
+	margin: 0;
+	float: none;
+}
+.single-product div.product .woocommerce-product-gallery__image img {
+	border: 1px solid var(--dsmd-border);
+}
+.single-product div.product .summary,
+.single-product div.product .entry-summary {
+	width: auto !important;
+	margin: 0;
+	float: none;
+}
+.single-product .product_title {
+	font-size: 30px;
+	margin: 0 0 12px;
+}
+.single-product div.product p.price,
+.single-product div.product span.price {
+	font-size: 22px;
+	color: var(--dsmd-primary);
+	margin-bottom: 20px;
+}
+.single-product .woocommerce-product-details__short-description {
+	color: var(--dsmd-secondary-text);
+	margin-bottom: 24px;
+}
+.single-product .stock {
+	font-size: 13px;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+}
+.single-product .stock.in-stock { color: #3d6b47; }
+.single-product .stock.out-of-stock { color: #9a3b3b; }
+
+/* Variations table (variable products) */
+.single-product table.variations {
+	margin-bottom: 20px;
+}
+.single-product table.variations td,
+.single-product table.variations th {
+	padding: 8px 8px 8px 0;
+	vertical-align: middle;
+}
+.single-product table.variations select {
+	font-family: var(--dsmd-font-body);
+	padding: 8px 12px;
+	border: 1px solid var(--dsmd-border);
+	border-radius: var(--dsmd-radius);
+	background: var(--dsmd-white);
+	min-width: 200px;
+}
+
+/* Add-to-cart form + quantity */
+.single-product form.cart {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin: 24px 0;
+	flex-wrap: wrap;
+}
+.single-product form.cart .quantity .qty {
+	width: 72px;
+	padding: 12px 8px;
+	text-align: center;
+	border: 1px solid var(--dsmd-border);
+	border-radius: var(--dsmd-radius);
+	font-family: var(--dsmd-font-body);
+}
+.single-product .product_meta {
+	margin-top: 24px;
+	padding-top: 20px;
+	border-top: 1px solid var(--dsmd-border);
+	font-size: 13px;
+	color: var(--dsmd-secondary-text);
+}
+.single-product .product_meta > span {
+	display: block;
+	margin-bottom: 6px;
+}
+
+/* Tabs + related, full width below the two-column grid */
+.single-product .woocommerce-tabs,
+.single-product .related.products,
+.single-product .upsells.products {
+	grid-column: 1 / -1;
+	margin-top: 56px;
+}
+.single-product .woocommerce-tabs ul.tabs {
+	padding: 0;
+	margin: 0 0 24px;
+	border-bottom: 1px solid var(--dsmd-border);
+	display: flex;
+	gap: 24px;
+	list-style: none;
+}
+.single-product .woocommerce-tabs ul.tabs::before {
+	display: none;
+}
+.single-product .woocommerce-tabs ul.tabs li {
+	background: none;
+	border: none;
+	border-radius: 0;
+	padding: 0 0 12px;
+	margin: 0;
+}
+.single-product .woocommerce-tabs ul.tabs li.active {
+	border-bottom: 2px solid var(--dsmd-primary);
+}
+.single-product .woocommerce-tabs ul.tabs li a {
+	padding: 0;
+	font-size: 14px;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+}
+.single-product .related.products > h2,
+.single-product .upsells.products > h2 {
+	font-size: 22px;
+	margin-bottom: 24px;
+}
+
+@media (max-width: 782px) {
+	.single-product div.product {
+		grid-template-columns: 1fr;
+		gap: 28px;
+	}
+	.single-product .product_title {
+		font-size: 24px;
+	}
+	.single-product form.cart {
+		gap: 10px;
+	}
+}
+
+/* ==========================================================================
+   MOD-09 / MOD-10 — Page prose + system pages
+   Base content styling for generic pages: the 7 CMS pages (legal/policy/
+   services) and system pages. Elementor-managed page bodies inherit these as
+   defaults; per-section overrides remain in Elementor (Page Ownership Matrix).
+   ========================================================================== */
+.site-main .dsmd-entry {
+	padding: 56px 0;
+}
+.dsmd-entry .entry-header {
+	margin-bottom: 32px;
+}
+.dsmd-entry .entry-title {
+	font-size: 34px;
+	margin: 0;
+}
+.dsmd-entry .entry-content {
+	max-width: 760px;
+}
+.dsmd-entry .entry-content > * + * {
+	margin-top: 1.2em;
+}
+.dsmd-entry .entry-content h2 { font-size: 24px; margin-top: 1.8em; }
+.dsmd-entry .entry-content h3 { font-size: 20px; margin-top: 1.6em; }
+.dsmd-entry .entry-content h4 { font-size: 17px; margin-top: 1.4em; }
+.dsmd-entry .entry-content a {
+	text-decoration: underline;
+	text-underline-offset: 2px;
+}
+.dsmd-entry .entry-content a:hover {
+	color: var(--dsmd-secondary-text);
+}
+.dsmd-entry .entry-content ul,
+.dsmd-entry .entry-content ol {
+	padding-left: 1.4em;
+}
+.dsmd-entry .entry-content li + li {
+	margin-top: 0.4em;
+}
+.dsmd-entry .entry-content blockquote {
+	margin: 1.5em 0;
+	padding: 8px 0 8px 20px;
+	border-left: 3px solid var(--dsmd-secondary);
+	color: var(--dsmd-secondary-text);
+	font-style: italic;
+}
+.dsmd-entry .entry-content table {
+	width: 100%;
+	border-collapse: collapse;
+}
+.dsmd-entry .entry-content th,
+.dsmd-entry .entry-content td {
+	border: 1px solid var(--dsmd-border);
+	padding: 10px 12px;
+	text-align: left;
+}
+.dsmd-entry .entry-content th {
+	background: var(--dsmd-background);
+	font-family: var(--dsmd-font-heading);
+	font-weight: 400;
+}
+
+/* 404 */
+.dsmd-404 {
+	padding: 96px 0;
+	text-align: center;
+	max-width: 560px;
+}
+.dsmd-404 h1 {
+	font-size: 40px;
+	margin: 0 0 16px;
+}
+.dsmd-404 p {
+	color: var(--dsmd-secondary-text);
+	margin: 0 0 28px;
+}
+
+@media (max-width: 782px) {
+	.dsmd-entry .entry-title { font-size: 26px; }
+	.dsmd-404 { padding: 64px 0; }
+	.dsmd-404 h1 { font-size: 30px; }
+}
+
+/* ==========================================================================
+   MOD-16 — Swatch chips (see inc/swatches.php + assets/js/swatches.js)
+   Original <select> is visually hidden but kept for WC logic + no-JS fallback
+   is preserved by only hiding it once JS has added .dsmd-swatches.
+   ========================================================================== */
+.dsmd-swatches {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin: 4px 0 4px;
+}
+/* Hide the native select only when the chip group is present (JS ran). */
+select.dsmd-swatch-select + .dsmd-swatches {
+	margin-top: 6px;
+}
+.dsmd-swatches + select.dsmd-swatch-select,
+select.dsmd-swatch-select:has(+ .dsmd-swatches) {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	white-space: nowrap;
+}
+.dsmd-swatch {
+	font-family: var(--dsmd-font-body);
+	font-size: 13px;
+	line-height: 1;
+	padding: 9px 14px;
+	background: var(--dsmd-white);
+	border: 1px solid var(--dsmd-border);
+	border-radius: var(--dsmd-radius);
+	color: var(--dsmd-primary);
+	cursor: pointer;
+	transition: border-color 0.15s ease, background 0.15s ease;
+}
+.dsmd-swatch:hover {
+	border-color: var(--dsmd-secondary);
+}
+.dsmd-swatch.is-selected {
+	border-color: var(--dsmd-primary);
+	background: var(--dsmd-primary);
+	color: var(--dsmd-white);
+}
+.dsmd-swatch.is-unavailable {
+	opacity: 0.4;
+	cursor: not-allowed;
+	text-decoration: line-through;
+}
+/* Colour / image swatch variants (term meta set in admin — RFI-020) */
+.dsmd-swatch--color,
+.dsmd-swatch--image {
+	padding: 4px;
+	line-height: 0;
+}
+.dsmd-swatch--color .dsmd-swatch-chip {
+	display: block;
+	width: 32px;
+	height: 32px;
+	border-radius: var(--dsmd-radius);
+	border: 1px solid var(--dsmd-border);
+}
+.dsmd-swatch--image img {
+	display: block;
+	width: 40px;
+	height: 40px;
+	object-fit: cover;
+	border-radius: var(--dsmd-radius);
+}
+.dsmd-swatch--color.is-selected,
+.dsmd-swatch--image.is-selected {
+	background: var(--dsmd-white);
+	border-color: var(--dsmd-primary);
+	box-shadow: 0 0 0 1px var(--dsmd-primary);
+}
+.dsmd-swatch--image.is-unavailable,
+.dsmd-swatch--color.is-unavailable {
+	text-decoration: none;
+}
+.dsmd-swatch:focus-visible {
+	outline: 2px solid var(--dsmd-secondary-text);
+	outline-offset: 2px;
+}
+
+/* ==========================================================================
+   HOMEPAGE — reference-aligned sections (MOD-06). Overrides the earlier
+   centered hero; defines featured/stats/category/why/financing/testimonials.
+   ========================================================================== */
+
+/* Hero */
+.dsmd-hero{background:linear-gradient(180deg,#FBFAF8 0%,var(--dsmd-background) 100%);padding:0;text-align:left;}
+.dsmd-hero-grid{display:grid;grid-template-columns:1.02fr 0.98fr;gap:72px;align-items:center;min-height:600px;padding:64px 24px;}
+.dsmd-hero-copy h1{font-size:60px;line-height:1.04;letter-spacing:-0.025em;margin:0 0 22px;}
+.dsmd-hero-copy h1 em{font-style:italic;color:var(--dsmd-gold-deep);}
+.dsmd-hero-sub{font-size:18px;line-height:1.75;color:var(--dsmd-secondary-text);max-width:42ch;margin:0 0 34px;}
+.dsmd-hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
+.dsmd-hero-media{position:relative;}
+.dsmd-hero-media img{width:100%;aspect-ratio:4/4.7;object-fit:cover;border-radius:var(--dsmd-radius);position:relative;z-index:1;}
+.dsmd-hero-media::before{content:"";position:absolute;inset:18px 18px -18px -18px;border:1px solid var(--dsmd-gold);border-radius:var(--dsmd-radius);z-index:0;}
+.dsmd-hero-badge{position:absolute;left:-6px;bottom:26px;z-index:2;background:var(--dsmd-primary);color:#fff;font-family:var(--dsmd-font-label);font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:12px 18px;}
+.dsmd-hero-badge b{color:var(--dsmd-gold);}
+
+/* Section scaffolding */
+.dsmd-section{padding:92px 0;}
+.dsmd-section--alt{background:var(--dsmd-background);}
+.dsmd-sec-head{text-align:center;max-width:640px;margin:0 auto 52px;}
+.dsmd-sec-head .dsmd-section-title{font-size:38px;line-height:1.1;margin:0;}
+.dsmd-rule{display:block;width:44px;height:2px;background:var(--dsmd-gold);margin:16px auto 0;}
+
+/* Featured products */
+.dsmd-product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;}
+.dsmd-product-card{background:var(--dsmd-white);border:1px solid var(--dsmd-border);border-radius:var(--dsmd-radius);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .25s ease,transform .25s ease;}
+.dsmd-product-card:hover{box-shadow:0 18px 40px -24px rgba(30,30,30,.35);transform:translateY(-3px);}
+.dsmd-product-thumb{display:block;}
+.dsmd-product-thumb img{aspect-ratio:1/1;object-fit:cover;width:100%;margin:0;}
+.dsmd-product-body{padding:20px;display:flex;flex-direction:column;gap:7px;flex:1;}
+.dsmd-product-name{font-family:var(--dsmd-font-heading);font-size:18px;line-height:1.25;color:var(--dsmd-primary);}
+.dsmd-product-price{color:var(--dsmd-primary);font-weight:600;}
+.dsmd-product-price .amount{font-weight:600;}
+.dsmd-select{margin-top:auto;font-family:var(--dsmd-font-label);font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--dsmd-gold-deep);padding-top:6px;}
+
+/* Trust stats */
+.dsmd-stats{background:var(--dsmd-primary);color:#fff;}
+.dsmd-stats-row{display:grid;grid-template-columns:repeat(3,1fr);padding:64px 24px;text-align:center;}
+.dsmd-stat{padding:0 20px;}
+.dsmd-stat + .dsmd-stat{border-left:1px solid rgba(255,255,255,.14);}
+.dsmd-stat-n{display:block;font-family:var(--dsmd-font-heading);font-size:58px;font-weight:700;color:var(--dsmd-gold);line-height:1;letter-spacing:-0.02em;}
+.dsmd-stat-l{display:block;font-family:var(--dsmd-font-label);font-size:12px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#d7cfc4;margin-top:10px;}
+
+/* Category grid */
+.dsmd-category-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.dsmd-category-card{position:relative;display:block;border-radius:var(--dsmd-radius);overflow:hidden;aspect-ratio:4/3.2;background:var(--dsmd-accent);}
+.dsmd-category-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
+.dsmd-category-card:hover .dsmd-category-thumb img{transform:scale(1.05);}
+.dsmd-category-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(0,0,0,.6) 100%);}
+.dsmd-category-name{position:absolute;left:22px;bottom:20px;z-index:2;color:#fff;font-family:var(--dsmd-font-heading);font-size:22px;}
+.dsmd-category-count{display:block;font-family:var(--dsmd-font-label);font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,.85);margin-top:4px;}
+
+/* Why DSM */
+.dsmd-why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;}
+.dsmd-why{text-align:center;}
+.dsmd-why-mark{width:54px;height:54px;border:1px solid var(--dsmd-gold);border-radius:50%;display:grid;place-items:center;margin:0 auto 18px;font-family:var(--dsmd-font-heading);font-size:18px;color:var(--dsmd-gold-deep);}
+.dsmd-why h3{font-family:var(--dsmd-font-heading);font-size:19px;margin:0 0 8px;}
+.dsmd-why p{font-size:14px;color:var(--dsmd-secondary-text);margin:0;}
+
+/* Financing */
+.dsmd-financing{background:var(--dsmd-accent);}
+.dsmd-financing-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:56px;align-items:center;padding:72px 24px;}
+.dsmd-financing-grid h2{font-size:32px;margin:0 0 14px;}
+.dsmd-financing-text{color:var(--dsmd-secondary-text);margin:0 0 26px;max-width:46ch;}
+.dsmd-financing-panel{aspect-ratio:16/10;background:linear-gradient(135deg,#2A2620,#4a4034);border-radius:var(--dsmd-radius);display:grid;place-items:center;}
+.dsmd-financing-panel span{font-family:var(--dsmd-font-label);font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#c9bda6;}
+
+/* Testimonials */
+.dsmd-testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.dsmd-quote{margin:0;background:var(--dsmd-white);border:1px solid var(--dsmd-border);border-radius:var(--dsmd-radius);padding:30px;}
+.dsmd-stars{color:var(--dsmd-gold);letter-spacing:3px;margin-bottom:14px;}
+.dsmd-quote blockquote{margin:0 0 18px;font-family:var(--dsmd-font-heading);font-size:18px;line-height:1.5;color:var(--dsmd-primary);}
+.dsmd-quote figcaption{font-size:13px;color:var(--dsmd-secondary-text);}
+.dsmd-quote figcaption b{display:block;color:var(--dsmd-primary);font-size:14px;margin-bottom:2px;}
+
+/* Homepage responsive */
+@media (max-width:900px){
+	.dsmd-hero-grid,.dsmd-financing-grid{grid-template-columns:1fr;gap:40px;}
+	.dsmd-hero-copy h1{font-size:42px;}
+	.dsmd-product-grid,.dsmd-why-grid{grid-template-columns:repeat(2,1fr);}
+	.dsmd-category-grid,.dsmd-testimonials,.dsmd-stats-row{grid-template-columns:1fr;}
+	.dsmd-stat + .dsmd-stat{border-left:none;border-top:1px solid rgba(255,255,255,.14);padding-top:28px;margin-top:28px;}
+	.dsmd-hero-media::before{display:none;}
+}
+
+/* ==========================================================================
+   HEADER v2 — announcement bar + tools (PM verification F1/F2)
+   ========================================================================== */
+.dsmd-topbar{background:var(--dsmd-primary);color:#cdc4b8;font-family:var(--dsmd-font-label);font-size:12px;}
+.dsmd-topbar-row{display:flex;align-items:center;gap:18px;height:38px;letter-spacing:0.03em;}
+.dsmd-topbar-phone{color:#fff;font-weight:600;letter-spacing:0.04em;margin-left:auto;}
+.dsmd-socials{display:flex;gap:10px;}
+.dsmd-social{width:22px;height:22px;border:1px solid rgba(255,255,255,.2);border-radius:50%;display:grid;place-items:center;font-size:9px;color:#cdc4b8;}
+.dsmd-social:hover{color:#fff;border-color:var(--dsmd-gold);}
+.header-actions{display:flex;align-items:center;gap:12px;}
+.header-ico{width:36px;height:36px;border:1px solid var(--dsmd-border);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:none;cursor:pointer;font-size:16px;color:var(--dsmd-primary);}
+.header-ico:hover{border-color:var(--dsmd-gold);color:var(--dsmd-gold-deep);}
+
+/* Projects (PM verification F5) */
+.dsmd-section--tight{padding-top:0;}
+.dsmd-projects{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.dsmd-project{position:relative;display:block;aspect-ratio:3/3.6;border-radius:var(--dsmd-radius);overflow:hidden;background:var(--dsmd-accent);}
+.dsmd-project-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
+.dsmd-project:hover .dsmd-project-thumb img{transform:scale(1.05);}
+.dsmd-project::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.62) 100%);}
+.dsmd-project-label{position:absolute;left:24px;bottom:22px;z-index:2;color:#fff;font-family:var(--dsmd-font-heading);font-size:24px;}
+.dsmd-project-view{display:block;font-family:var(--dsmd-font-label);font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--dsmd-gold);margin-top:6px;}
+
+@media (max-width:900px){
+	.dsmd-topbar-note{display:none;}
+	.dsmd-topbar-phone{margin-left:0;}
+	.dsmd-projects{grid-template-columns:1fr;}
+}

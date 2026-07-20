@@ -1,0 +1,33 @@
+# WordPress core — not tracked, pulled via installer/wp-cli
+/wp-admin/
+/wp-includes/
+/wp-*.php
+/index.php
+/xmlrpc.php
+/license.txt
+/readme.html
+/wp-cli.phar
+
+# Secrets / environment
+wp-config.php
+
+# Third-party plugins — installed via WP admin/composer, not committed
+/wp-content/plugins/*
+!/wp-content/plugins/.gitkeep
+
+# Default WP bundled themes — not used, not committed
+/wp-content/themes/twentytwentythree/
+/wp-content/themes/twentytwentyfour/
+/wp-content/themes/twentytwentyfive/
+
+# Uploads / generated / cache
+/wp-content/uploads/
+/wp-content/upgrade/
+/wp-content/cache/
+*.log
+
+# Internal agency tooling — not client deliverable
+/.claude/
+
+# Misc
+node_modules/
